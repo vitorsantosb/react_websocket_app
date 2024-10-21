@@ -157,8 +157,6 @@ const renderMenu = (menuObject, navigate) => {
 
 function MenuLayout() {
   const { currentUser, mobileOpened, desktopOpened, toggleMobile, openedModal, close } = useLayoutContext();
-  console.log('openedModal: ', openedModal);
-  console.log('closeModal: ', closeModal);
   const modifiedMenuTree = getMenuTree(currentUser?.role?.permissions);
   const navigate = useNavigate();
   

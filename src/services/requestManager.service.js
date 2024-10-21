@@ -2,11 +2,6 @@
 class RequestManager {
   constructor(baseURL) {
     this.baseURL = baseURL;
-    this.accessToken = null;
-  }
-
-  setAccessToken(token) {
-    this.accessToken = token;
   }
 
   async sendRequest(endpoint, method, data = null) {
@@ -18,9 +13,9 @@ class RequestManager {
         method: method,
         headers: {
           "Content-Type": "application/json",
-          Authorization: this.accessToken ? `Bearer ${this.accessToken}` : "",
         },
         // Check if data is FormData, if so, set it directly as the body
+        credentials: 'include',
         body: data instanceof FormData ? data : JSON.stringify(data),
         mode: "cors",
       };
@@ -48,5 +43,4 @@ class RequestManager {
   }
 }
 
-// eslint-disable-next-line no-undef
 export default RequestManager;

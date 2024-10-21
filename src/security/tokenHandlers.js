@@ -23,6 +23,7 @@ function decodeJwt(token) {
     return JSON.parse(jsonPayload);
   } catch (error) {
     //if token is ivalid
+    console.log(error);
     return null;
   }
 }

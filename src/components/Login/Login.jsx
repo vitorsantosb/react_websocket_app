@@ -1,22 +1,26 @@
 import { PasswordInput, TextInput, Text, Button, Group, LoadingOverlay, Modal, Flex } from '@mantine/core';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useFormik } from 'formik';
 import loginValidationSchema from '@/components/Login/schemas/login_form.schema.js';
 import { userRoutes } from '@/models/routes.js';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Userlogin } from '@/services/routes/user/user.routes.js';
 import config from '@/config/projectConfig.json';
 
 import PropTypes from 'prop-types';
+import { useUser } from '@/providers/UserProvider.jsx';
+import CustomBotton from '@/components/shared/CustomBottom/CustomBotton';
 
 function Login({ opened, closed }) {
   const navigate = useNavigate();
   const [loadingLogin, setLoadingLogin] = useState(false);
+  const { validateUserLogin } = useUser();
   
-  console.log('opened', opened);
-  console.log('closed', closed);
-  
+  function handleForgotPassword() {
+   navigate(userRoutes.RESET_PASSWORD)
+  }
+
+
   const loginForm = useFormik({
     initialValues: {
       email: '',
@@ -26,9 +30,9 @@ function Login({ opened, closed }) {
     validateOnChange: false,
     onSubmit: async (values) => {
       setLoadingLogin(true);
-      const response = await Userlogin(values);
-      console.log(response);
-      if (response.statusCode === 200) {
+      const _queryResult = await validateUserLogin(values);
+      if (_queryResult) {
+        setLoadingLogin(false);
         await Swal.fire({
             icon: 'success',
             title: 'Login efetuado com sucesso',
@@ -50,30 +54,28 @@ function Login({ opened, closed }) {
             timer: 1500,
           },
         );
-        navigate(userRoutes.CHAT);
-      } else if (response.statusCode === 204 || response.statusCode === 404) {
-        setLoadingLogin(false);
-        await Swal.fire({
-            icon: 'error',
-            title: 'Email ou senha inválidos',
-            showClass: {
-              popup: `
+      }
+      setLoadingLogin(false);
+      await Swal.fire({
+          icon: 'error',
+          title: 'Email ou senha inválidos',
+          showClass: {
+            popup: `
                animate__animated
                animate__fadeInUp
                animate__faster
               `,
-            },
-            hideClass: {
-              popup: `
+          },
+          hideClass: {
+            popup: `
                 animate__animated
                 animate__fadeOutDown
                 animate__faster
               `,
-            },
-            showConfirmButton: true,
           },
-        );
-      }
+          showConfirmButton: true,
+        },
+      );
     },
   });
   
@@ -157,13 +159,8 @@ function Login({ opened, closed }) {
       >
       </PasswordInput>
       <Flex direction={'column'} justifyContent={'center'}>
-        <Button fw={500} onClick={() => navigate(userRoutes.RESET_PASSWORD)} bg={config.colors.modal.button.background}
-                style={{ color: config.colors.modal.button.text_color }}>
-          Esqueci minha senha
-        </Button>
-        <Button bg={config.colors.modal.button.confirm_button.background} onClick={loginForm.handleSubmit}>
-          Entrar
-        </Button>
+        <CustomBotton parentMethod={handleForgotPassword} label={'Esqueci minha senha'} style={{backgroundColor: config.colors.modal.button.background, fontWeight: 500, color: config.colors.modal.button.text_color}}/>
+        <CustomBotton parentMethod={loginForm.handleSubmit} label={'Entrar'} style={{backgroundColor: config.colors.modal.button.confirm_button.background}}/>
       </Flex>
     </Modal>
   );
@@ -171,6 +168,6 @@ function Login({ opened, closed }) {
 
 Login.propTypes = {
   opened: PropTypes.bool.isRequired,
-  closed: PropTypes.bool,
+  closed: PropTypes.func,
 };
 export default Login;

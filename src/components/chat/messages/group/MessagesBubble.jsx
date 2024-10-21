@@ -6,7 +6,8 @@ import { FormatDateForChat } from '@/utils/timestamp.js';
 import { FormatMessageWithLineBreaks } from '@/utils/chat.utils.js';
 
 
-function MessagesBubble({ target = 'listener',username, message, timestamp, locale, userImage = null}) {
+function MessagesBubble({username, message, timestamp, locale, userImage = null}) {
+  console.log(message);
   return (
     <Group align="start" noWrap spacing="sm" style={{ marginBottom: '1rem' }}>
       {userImage && (
@@ -32,8 +33,8 @@ function MessagesBubble({ target = 'listener',username, message, timestamp, loca
             maxWidth: '100%',
             display: 'inline-block',
             borderRadius: '15px 15px 0 15px',
-            overflowWrap: 'break-word', // Para quebrar palavras longas
-            wordWrap: 'break-word', // Compatibilidade com navegadores mais antigos
+            overflowWrap: 'break-word',
+            wordWrap: 'break-word',
           }}
         >
           <Stack>

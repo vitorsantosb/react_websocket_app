@@ -17,7 +17,19 @@ async function Userlogin(userData) {
 	return response;
 }
 
+async function GetUserData() {
+	const requestManager = new RequestManager(BASE_URL);
+	
+	const response = await requestManager.sendRequest(
+		'/user/me',
+		'GET'
+	)
+	
+	return response;
+}
+
 export {
-	Userlogin
+	Userlogin,
+	GetUserData
 }
 

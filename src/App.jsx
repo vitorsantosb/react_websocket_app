@@ -3,6 +3,7 @@ import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import './App.css';
 import AppRoutes from '@/AppRoutes.jsx';
+import { UserProvider } from '@/providers/UserProvider.jsx';
 
 
 function App() {
@@ -21,7 +22,9 @@ function App() {
       }
     }
     }>
-      <AppRoutes/>
+      <UserProvider>
+        <AppRoutes/>
+      </UserProvider>
     </MantineProvider>
   )
 }

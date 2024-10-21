@@ -15,16 +15,25 @@
       "button": {
         "background": "transparent",
         "text_color": "#FFFFFF",
-
+        
         "confirm_button": {
           "background": "#0057FF"
         }
       }
     },
     "chat": {
+      "message_header": {
+        "background_color": "#ffff",
+        "border_color": "#161A23",
+        "border_config": "solid 1px lightgray"
+      },
       "bubble": {
         "backgroundColor": "#007BFF",
         "text_color": "#FFFFFF"
+      },
+      "bubble_without_avatar": {
+        "backgroundColor": "#FFFFF",
+        "text_color": "#000000"
       }
     }
   }
