@@ -22,10 +22,21 @@ export const menuTree = {
     },
     chat: {
       label: "Chat",
-      link: "/chat",
       leftSection: "IconMessages",
       childrenOffset: childrenOffset,
       active: 2,
+      children: [
+        {
+          label: "Pessoas",
+          link: "/users",
+          activeChild: 2.1,
+        },
+        {
+          label: "chat",
+          link: "/chat",
+          activeChild: 2.2,
+        }
+      ],
     },
     updates: {
       label: "Updates",

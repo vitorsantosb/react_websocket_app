@@ -28,8 +28,22 @@ async function GetUserData() {
 	return response;
 }
 
+async function GetAllUsersFromDbWithPagination(page = 0, limit = 10) {
+	const requestManager = new RequestManager(BASE_URL);
+	
+	try {
+		const allUsersPath = `/user/list?page=${page}&limit=${limit}`;
+		const response = await requestManager.sendRequest(allUsersPath, "GET");
+		
+		return response;
+	} catch (error) {
+		console.error("Login failed", error);
+	}
+}
+
 export {
 	Userlogin,
-	GetUserData
+	GetUserData,
+	GetAllUsersFromDbWithPagination
 }
 

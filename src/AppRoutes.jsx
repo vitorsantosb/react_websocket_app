@@ -10,6 +10,7 @@ import Chat from '@/pages/chat/Chat.jsx';
 import Forum from '@/pages/forum/Forum.jsx';
 import Layout from '@/components/Layouts/Layout.jsx';
 import HomePage from '@/pages/home/HomePage.jsx';
+import AllUsers from '@/pages/chat/Users/AllUsers.jsx';
 
 function AppRoutes() {
 
@@ -20,6 +21,7 @@ function AppRoutes() {
           <Route index exact path={"/"} element={<HomePage/>}/>
           <Route index exact path={userRoutes.CHAT} element={<Chat/>}/>
           <Route index exact path={userRoutes.FORUM} element={<Forum/>}/>
+          <Route index exact path={userRoutes.USERS} element={<AllUsers/>}/>
         </Route>
       </RoutesWithNotFound>
     </Router>

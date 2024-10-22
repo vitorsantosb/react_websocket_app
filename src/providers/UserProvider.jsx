@@ -21,7 +21,8 @@ export function UserProvider({ children }) {
         persistLocalStorageUser('_currentUser', _userForStorage);
         //set user variable
         const _socket = ConnectSocket();
-        setSocket(_socket);
+        console.log(_socket);
+        setSocket(_socket); 
         
         setUser(_userForStorage);
         resolve(true);
